@@ -1,0 +1,5 @@
+#!/bin/sh
+
+APPIMAGE_DIR="${PWD}/.."
+cd "$OWD"
+exec "${APPIMAGE_DIR}/love" "$APPIMAGE_DIR" "$@"

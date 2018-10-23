@@ -1,0 +1,39 @@
+#!/bin/sh
+export TMP="squashfs-root"
+export RUNTIME="$TMP/runtime"
+export OUT="polyamory"
+
+clean() {
+	rm -rf "$TMP" || exit 1
+}
+
+unpack() {
+	[ -f "$ARCH/base.image" ] || { echo "ERROR: base.image not found"; exit 1; }
+	"./$ARCH/base.image" --appimage-extract || { echo "ERROR: could not extract base.image"; exit 1; }
+}
+
+build() {
+	mkdir "$RUNTIME"                 || exit 1
+	cp -r "$ARCH/love/"* "$RUNTIME"  || exit 1
+	cp -r "../src/"* "$TMP"          || exit 1
+	cp -r "../assets/"* "$TMP"       || exit 1
+	appimagetool $TMP "$OUT"         || exit 1
+	mv "$OUT" "../build/linux/$ARCH" || exit 1
+}
+
+case "$1" in
+	x64 | x86)
+		export ARCH="$1"
+		[ -d "$1" ] || { echo "ERROR: run build from the 'linux' directory"; exit 1; }
+		command -v appimagetool || { echo "ERROR: appimagetool not found in PATH"; exit 1; }
+		;;
+	*)
+		echo "usage: $0 x64 | x86"
+		exit 1
+		;;
+esac
+
+clean
+unpack
+build
+clean
