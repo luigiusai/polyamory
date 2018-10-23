@@ -8,15 +8,15 @@ It is not intended for developers, but rather meant to be used as a drop-in repl
 
 Currently supported LÖVE versions:
 
-* 11.1
-* 11.0
-* 0.10.2
-* 0.10.1
-* 0.10.0
-* 0.9.2
-* 0.9.1
-* 0.9.0
-* 0.8.0
+* 11.1  
+* 11.0  
+* 0.10.2  
+* 0.10.1  
+* 0.10.0  
+* 0.9.2  
+* 0.9.1  
+* 0.9.0  
+* 0.8.0  
 
 ## Downloads
 
@@ -24,7 +24,7 @@ SOON!
 
 ## How to use
 
-On Windows: make a backup copy of your current LÖVE installation directory and replace it with the directory from the downloaded polyamory archive.
+On Windows: polyamory is a drop-in replacement for an existing LÖVE installation. Make a backup copy of your current LÖVE installation directory and replace it with the directory from the downloaded polyamory archive.
 
 On Linux: put the polyamory binary in your search path. Start love games by typing `polyamory <game>.love` in a terminal window.
 
@@ -39,39 +39,41 @@ Other requirements:
 * bash  
 * appimagetool in your PATH, any non-ancient version of AppImageKit will probably do.  
 
-1. Copy the AppImage of the *latest* release image into the `linux/x64`/`x86` directory, and name it `base.image`:  
-
-       linux/  
-         x64/
-           base.image  *  
-           love/  
-
-2. Place your pre-built images in `linux/x64/love` or `linux/x86/love`, depending on the platform you want to build for.
-
-Create one directory per LÖVE version. Name each directory exactly the same as the version string of the LÖVE version you're placing in there:
-
+1. Copy the AppImage of the *latest* release image into the `linux/x64`/`x86` directory, and name it `base.image`:
+    ```
     linux/  
-      x64/
-       base.image
-       love/  
-          11.1/   *  
-          11.0/   *  
-          0.9.0/  *  
-          ...  
+        x64/
+            base.image  <-- here
+            love/  
+
+    ```
+
+2. Place your pre-built images in `linux/x64/love` or `linux/x86/love`, depending on the platform you want to build for. Create one directory per LÖVE version. Name each directory exactly the same as the version string of the LÖVE version you're placing in there:
+    ```
+    linux/  
+        x64/  
+            base.image  
+            love/  
+                11.1/   <-- here  
+                11.0/   <-- here  
+                0.9.0/  <-- here  
+                ...  
+    ```
 
 3. Copy each AppImage into the numbered directory structure you have created, according to the LÖVE release they contain, and rename them `love.exe`:
-
-       linux/  
-         x64/
-           love/  
-             base.image  *  
-               11.1/   
-                 love.exe  *  
-               11.0/     
-                 love.exe  *  
-               0.9.0/    
-                 love.exe  *  
-               ...  
+    ```
+    linux/  
+        x64/  
+            base.image
+            love/  
+                11.1/  
+                    love.exe  <-- here  
+                11.0/  
+                    love.exe  <-- here  
+                0.9.0/  
+                    love.exe  <-- here  
+                ...  
+    ```
 
 4. Run this command from the `linux` directory:
 
