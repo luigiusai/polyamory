@@ -1,3 +1,50 @@
 #!/bin/sh
-echo This is just a placeholder
-exit 1
+
+clean() {
+	{
+		rm -rf "$TARGET"/*
+	} || exit 1
+}
+
+buildapp() {
+	{
+		mkdir -p $APP
+		cp ../src/*.lua "$APP"
+		cp ../assets/* "$APP"
+		zip -j "$TMP"/app.love "$APP"/*
+	} || exit 1
+}
+
+buildlove() {
+	{
+		mkdir -p "$TARGET"/runtime
+		cp -r "$ARCH"/love/* "$TARGET"/runtime
+		cp -r "$ARCH"/base/* "$TARGET"
+		cat "$TARGET"/love.exe "$TMP"/app.love >"$TARGET"/app.exe
+		cat "$TARGET"/lovec.exe "$TMP"/app.love >"$TARGET"/appc.exe
+		rm "$TARGET"/love.exe "$TARGET"/lovec.exe
+		mv "$TARGET"/app.exe "$TARGET"/love.exe
+		mv "$TARGET"/appc.exe "$TARGET"/lovec.exe
+		rm -f "$TARGET/.gitignore"
+	} || exit 1
+}
+
+case "$1" in
+	x64 | x86)
+		export ARCH="$1"
+		export TARGET=../build/windows/"$ARCH"
+		[ -d "$1" ] || { echo "ERROR: run build from the 'windows' directory"; exit 1; }
+		;;
+	*)
+		echo "usage: $0 x64 | x86"
+		exit 1
+		;;
+esac
+
+export TMP=$(mktemp -d) || exit 1
+export APP="$TMP/app"
+
+clean
+buildapp
+buildlove
+echo Done! polyamory built in "$TARGET"
