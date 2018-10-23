@@ -13,12 +13,14 @@ unpack() {
 }
 
 build() {
-	mkdir "$RUNTIME"                 || exit 1
-	cp -r "$ARCH/love/"* "$RUNTIME"  || exit 1
-	cp -r "../src/"* "$TMP"          || exit 1
-	cp -r "../assets/"* "$TMP"       || exit 1
-	appimagetool $TMP "$OUT"         || exit 1
-	mv "$OUT" "../build/linux/$ARCH" || exit 1
+	{
+		mkdir "$RUNTIME"
+		cp -r "$ARCH/love/"* "$RUNTIME"
+		cp -r "../src/"* "$TMP"
+		cp -r "../assets/"* "$TMP"
+		appimagetool $TMP "$OUT"
+		mv "$OUT" "../build/linux/$ARCH"
+	} || exit 1
 }
 
 case "$1" in
