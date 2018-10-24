@@ -102,9 +102,16 @@ local function verifyVersion(targetPath)
 	return true, version
 end
 
+local function execute(what)
+	if love.system.getOS() == 'Windows' then
+		return os.execute(('start %s'):format(what))
+	end
+	return os.execute(('%s &'):format(what))
+end
+
 local function loadGame(targetPath, runtime)
 	if runtime then
-		return true, os.execute(('%s %s'):format(runtimes[runtime].path, targetPath))
+		return true, execute(('%s %s'):format(runtimes[runtime].path, targetPath))
 	end
 
 	if not targetPath then return false, 'no game' end
@@ -115,7 +122,7 @@ local function loadGame(targetPath, runtime)
 		return okay, err, details, runtimes
 	end
 
-	return true, os.execute(('%s %s'):format(runtimes[err].path, targetPath))
+	return true, execute(('%s %s'):format(runtimes[err].path, targetPath))
 end
 
 return loadGame

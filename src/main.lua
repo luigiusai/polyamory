@@ -1,4 +1,4 @@
-io.stdout:setvbuf('line')
+io.stdout:setvbuf('no')
 local loader = require('loader')
 
 function runGame(targetPath, runtime)
@@ -10,4 +10,8 @@ function runGame(targetPath, runtime)
 	end
 end
 
-runGame(arg[2])
+if love.filesystem.isFused() then
+	runGame(arg[1])
+else
+	runGame(arg[2])
+end
