@@ -58,7 +58,7 @@ Copy the AppImage of the *latest* release image into the `linux/x64`/`x86` direc
 
 #### Step 2  
 
-Make a directory for each LÖVE version you want to include in your build in `linux/x64/love` or `linux/x86/love`, depending on the platform you want to build for. Name each directory exactly the same as the version string of the LÖVE version that will go in there:
+Make a directory for each LÖVE version you want to include in your build in `linux/x64/love` or `linux/x86/love`, depending on the architecture you want to build for. Name each directory exactly the same as the version string of the LÖVE version that will go in there:
 
     linux/  
         x64/  
@@ -89,7 +89,7 @@ Place your pre-built images in the numbered directory structure you have created
 
 Run this command from the `linux` directory:
 
-    $ bash build x64 # or sh build x86, depends on your target platform
+    $ bash build x64 # or bash build x86, depends on your target architecture
 
 #### Done
 
@@ -159,7 +159,7 @@ Put the files of the latest LÖVE version in `windows/x64/base` or `windows/x86/
 
 Run this command from the `windows` directory:
 
-    $ bash build x64 # or sh build x86, depends on your target platform
+    $ bash build x64 # or bash build x86, depends on your target architecture
 
 #### Done
 
