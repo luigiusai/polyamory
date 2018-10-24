@@ -115,6 +115,7 @@ For each version to be included, create a directory in `windows/x64` or `windows
 
     windows/  
         x64/  
+            base/  
             love/  
                 11.1/   <-- here  
                 11.0/   <-- here  
@@ -123,15 +124,31 @@ For each version to be included, create a directory in `windows/x64` or `windows
 
 Copy the files for each version into these directories.
 
+    windows/  
+        x64/  
+            base/  
+            love/  
+                11.1/   
+                    love.exe    <-- here
+                    readme.txt  <-- here
+                    ...
+                11.0/   
+                    love.exe    <-- here
+                    readme.txt  <-- here
+                    ...
+                0.9.0/  
+                ...  
+
 #### Step 3  
 
-Build or download the latest LÖVE version and put the files for that version in `windows/x64` or `windows/x86`:
+Put the files of the latest LÖVE version in `windows/x64/base` or `windows/x86/base`:
 
     windows/  
         x64/  
-            love.exe    <-- here
-            readme.txt  <-- here
-            ...
+            base/
+                love.exe    <-- here
+                readme.txt  <-- here
+                ...
             love/  
                 11.1/  
                 11.0/  
