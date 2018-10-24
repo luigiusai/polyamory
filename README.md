@@ -48,7 +48,7 @@ Other requirements:
 
     ```
 
-2. Place your pre-built images in `linux/x64/love` or `linux/x86/love`, depending on the platform you want to build for. Create one directory per LÖVE version. Name each directory exactly the same as the version string of the LÖVE version you're placing in there:
+2. Make a directory for each LÖVE version you want to include in your build in `linux/x64/love` or `linux/x86/love`, depending on the platform you want to build for. Name each directory exactly the same as the version string of the LÖVE version that will go in there:
     ```
     linux/  
         x64/  
@@ -60,7 +60,7 @@ Other requirements:
                 ...  
     ```
 
-3. Copy each AppImage into the numbered directory structure you have created, according to the LÖVE release they contain, and rename them `love.exe`:
+3. Place your pre-built images in the numbered directory structure you have created, according to the LÖVE release they contain, and rename them as `love.exe`:
     ```
     linux/  
         x64/  
