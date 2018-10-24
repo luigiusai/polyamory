@@ -1,10 +1,8 @@
-#!/bin/sh
-export TMP="squashfs-root"
-export RUNTIME="$TMP/runtime"
-export OUT="polyamory"
+#!/bin/bash
+set -e
 
 clean() {
-	rm -rf "$TMP" || exit 1
+	rm -rf "$TMP"
 }
 
 unpack() {
@@ -13,14 +11,12 @@ unpack() {
 }
 
 build() {
-	{
-		mkdir "$RUNTIME"
-		cp -r "$ARCH/love/"* "$RUNTIME"
-		cp -r "../src/"* "$TMP"
-		cp -r "../assets/"* "$TMP"
-		appimagetool $TMP "$OUT"
-		mv "$OUT" "../build/linux/$ARCH"
-	} || exit 1
+	mkdir "$RUNTIME"
+	cp -r "$ARCH/love/"* "$RUNTIME"
+	cp -r "../src/"* "$TMP"
+	cp -r "../assets/"* "$TMP"
+	echo "$TARGET"/polyamory
+	appimagetool "$TMP" "$TARGET"/polyamory
 }
 
 case "$1" in
@@ -35,7 +31,12 @@ case "$1" in
 		;;
 esac
 
+export TMP="squashfs-root"
+export RUNTIME="$TMP/runtime"
+export TARGET=../build/linux/"$ARCH"
+
 clean
 unpack
 build
 clean
+echo Done! polyamory built in "$TARGET"
