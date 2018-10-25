@@ -172,7 +172,8 @@ end
 
 local function loadGame(targetPath, runtime)
 	if runtime then
-		return true, execute(('%s %s'):format(runtimes[runtime].path, targetPath))
+		print('run', runtimes[runtime].path, targetPath)
+		return true, execute(('"%s" "%s"'):format(runtimes[runtime].path, targetPath))
 	end
 
 	if not targetPath then return false, 'no game' end
@@ -180,10 +181,13 @@ local function loadGame(targetPath, runtime)
 
 	local okay, ver, details = verifyVersion()
 	if not okay then
-		return false, ver, details, runtimes, detectVersion()
+		local detected = detectVersion()
+		print('detected version:', detected or 'none')
+		return false, ver, details, runtimes, detected and VERSION_MAP[getRelevantVersion(detected)]
 	end
 
-	return true, execute(('%s %s'):format(runtimes[ver].path, targetPath))
+	print('run', runtimes[ver].path, targetPath)
+	return true, execute(('"%s" "%s"'):format(runtimes[ver].path, targetPath))
 end
 
 return loadGame
