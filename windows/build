@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+SELF_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
+cd $SELF_DIR
+
 buildapp() {
 	mkdir -p $APP
 	cp ../src/*.lua "$APP"
