@@ -18,8 +18,13 @@ local VERSION = '$1'
 local LOVE_VERSION = ('%s.%s.%s'):format(love._version_major, love._version_minor, love._version_revision)
 
 local function version_match()
-	local maj, min = VERSION:match('^(%d+)%.(%d+)')
-	return maj == tostring(love._version_major) and min == tostring(love._version_minor)
+	local maj, min, rev = VERSION:match('^(%d+)%.(%d+)%.(%d+)$')
+	if maj then
+		return maj == tostring(love._version_major) and min == tostring(love._version_minor)
+	end
+
+	maj, min = VERSION:match('^(%d+)%.(%d+)$')
+	return maj == tostring(love._version_major)
 end
 
 function love.draw()
