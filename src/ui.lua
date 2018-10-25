@@ -107,7 +107,7 @@ end
 
 return function(targetPath, err, details, runtimes, recommendedVersion)
 	lines = {}
-	window.setMode(640, 300) -- TODO: fit to required size
+	window.setMode(640, 160) -- TODO: fit to required size
 	window.setTitle('polyamory')
 	defaultFont = defaultFont or graphics.getFont()
 	font = font or graphics.setNewFont('rif.ttf', 18)
@@ -119,7 +119,7 @@ return function(targetPath, err, details, runtimes, recommendedVersion)
 		printText('File not found:')
 		printText(details)
 	elseif err == 'no version' then
-		printText('This game has no associated LÖVE version')
+		printText('This game has no associated LÖVE version. Choose one:')
 		versionMenu(runtimes, targetPath, recommendedVersion)
 	elseif err == 'invalid version' then
 		printText('This game has an invalid version identifier (' .. details .. ')')
