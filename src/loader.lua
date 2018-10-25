@@ -177,7 +177,7 @@ local function loadGame(targetPath, runtime)
 	end
 
 	if not targetPath then return false, 'no game' end
-	if not mountGame(targetPath, 'target') then return false, 'not found', targetPath end
+	if not mountGame(targetPath, 'target') then return false, 'mount error', targetPath end
 
 	local okay, ver, details = verifyVersion()
 	if not okay then

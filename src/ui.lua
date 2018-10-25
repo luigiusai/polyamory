@@ -115,8 +115,8 @@ return function(targetPath, err, details, runtimes, recommendedVersion)
 
 	if err == 'no game' then
 		printText('No game. Drop one here.')
-	elseif err == 'not found' then
-		printText('File not found:')
+	elseif err == 'mount error' then
+		printText('File not found or corrupt archive:')
 		printText(details)
 	elseif err == 'no version' then
 		printText('This game has no associated LÖVE version. Choose one:')
