@@ -1,0 +1,58 @@
+#!/bin/bash
+set -e
+
+declare -a VERSIONS=(
+	"0.8.0"
+	"0.9.0"
+	"0.9.1"
+	"0.9.2"
+	"0.10.0"
+	"0.10.1"
+	"0.10.2"
+	"11.0"
+	"11.1"
+)
+
+main() { cat <<EOF
+local VERSION = '$1'
+local LOVE_VERSION = ('%s.%s.%s'):format(love._version_major, love._version_minor, love._version_revision)
+
+local function version_match()
+	local maj, min = VERSION:match('^(%d+)%.(%d+)')
+	return maj == tostring(love._version_major) and min == tostring(love._version_minor)
+end
+
+function love.draw()
+	if version_match() then
+		love.graphics.print(('This is polyamory-test-%s, running on LÖVE %s'):format(VERSION, LOVE_VERSION), 0, 0)
+	else
+		error(('Version mismatch: %s ~= %s'):format(VERSION, LOVE_VERSION), 0, 0)
+	end
+end
+
+function love.keypressed(key)
+	love.event.quit()
+end
+EOF
+}
+
+conf() { cat <<EOF
+function love.conf(t)
+	t.version = '$1'
+end
+EOF
+}
+
+SELF_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
+cd "$SELF_DIR"
+
+for version in "${VERSIONS[@]}"; do
+	if [ -d "$version" ]; then
+		rm -rf $version
+	fi
+	mkdir -p "$version"
+	main $version >"$version"/main.lua
+	conf $version >"$version"/conf.lua
+	zip -jr "$version".love "$version"/*.lua
+	rm -rf $version
+done
