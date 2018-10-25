@@ -40,7 +40,7 @@ coming soon!
 
 ### Linux
 
-You need one AppImage for each version of LÖVE you want to include in your build. Check the [LÖVE](https://bitbucket.org/rude/love) repo for build scripts and instructions.
+You need one AppImage for each version of LÖVE you want to include in your build. Check the [LÖVE](https://bitbucket.org/rude/love) repo for build scripts and instructions. AppImages for 0.8.0, 0.9.2, 0.10.2 and 11.1 are required.
 
 Other requirements:  
 
@@ -65,9 +65,9 @@ Make a directory for each LÖVE version you want to include in your build in `li
             base.image  
             love/  
                 11.1/   <-- here  
-                11.0/   <-- here  
-                0.9.0/  <-- here  
-                ...  
+                0.10.2/ <-- here  
+                0.9.2/  <-- here  
+                0.8.0/  <-- here  
 
 #### Step 3  
 
@@ -79,11 +79,12 @@ Place your pre-built images in the numbered directory structure you have created
             love/  
                 11.1/  
                     love.exe  <-- here  
-                11.0/  
+                0.10.2/
                     love.exe  <-- here  
-                0.9.0/  
+                0.9.2/  
                     love.exe  <-- here  
-                ...  
+                0.8.0/  
+                    love.exe  <-- here  
 
 #### Step 4  
 
@@ -107,7 +108,7 @@ Requirements:
 
 #### Step 1  
 
-Build each LÖVE version you want to include, or download pre-built zips with binaries for each version and architecture you want to include from the [LÖVE repo](https://bitbucket.org/rude/love/downloads) (e. g. `love-$VERSION-win<32 or 64>.zip`)
+Build each LÖVE version you want to include, or download pre-built zips with binaries for each version and architecture you want to include from the [LÖVE repo](https://bitbucket.org/rude/love/downloads) (e. g. `love-$VERSION-win<32 or 64>.zip`). Versions 0.8.0, 0.9.2, 0.10.2 and 11.1 are required.
 
 #### Step 2  
 
@@ -117,10 +118,10 @@ For each version to be included, create a directory in `windows/x64` or `windows
         x64/  
             base/  
             love/  
-                11.1/   <-- here  
-                11.0/   <-- here  
-                0.9.0/  <-- here  
-                ...  
+                11.1/    <-- here  
+                0.10.2/  <-- here  
+                0.9.2/   <-- here  
+                0.8.0/   <-- here  
 
 Copy the files for each version into these directories.
 
@@ -132,11 +133,10 @@ Copy the files for each version into these directories.
                     love.exe    <-- here
                     readme.txt  <-- here
                     ...
-                11.0/   
+                0.10.2/  
                     love.exe    <-- here
                     readme.txt  <-- here
                     ...
-                0.9.0/  
                 ...  
 
 #### Step 3  
@@ -150,9 +150,10 @@ Put the files of the latest LÖVE version in `windows/x64/base` or `windows/x86/
                 readme.txt  <-- here
                 ...
             love/  
-                11.1/  
-                11.0/  
-                0.9.0/  
+                11.1/ 
+                    ... 
+                0.10.2/
+                    ...  
                 ...  
 
 #### Step 4  

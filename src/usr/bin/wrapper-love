@@ -2,4 +2,5 @@
 
 APPIMAGE_DIR="${PWD}/.."
 cd "$OWD"
+# start the main.lua from the AppImage. Pass the game the user wants to start in the second argument
 exec "${APPIMAGE_DIR}/love" "$APPIMAGE_DIR" "$@"

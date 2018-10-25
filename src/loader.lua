@@ -1,5 +1,37 @@
 local ffi = require('ffi')
 
+local SUPPORTED_VERSIONS = {
+	'0.8.0',
+	'0.9.0',
+	'0.9.1',
+	'0.9.2',
+	'0.10.0',
+	'0.10.1',
+	'0.10.2',
+	'11.0',
+	'11.1',
+}
+
+-- release dates of known LÖVE versions
+local VERSION_EPOCH = {
+	1385161200, -- 0.8.0
+	1386889200, -- 0.9.0
+	1396303200, -- 0.9.1
+	1423868400, -- 0.9.2
+	1456786800, -- 0.10.0
+	1456873200, -- 0.10.1
+	1477868400, -- 0.10.2
+	1522533600, -- 11.0
+	1523743200, -- 11.1
+}
+
+local VERSION_MAP = {
+	['8'] = '0.8.0',
+	['9'] = '0.9.2',
+	['10'] = '0.10.2',
+	['11'] = '11.1',
+}
+
 local BASE = love.filesystem.getSource()
 if love.filesystem.isFused() then
 	-- for windows
@@ -61,7 +93,7 @@ local function getRuntimes()
 end
 
 -- tries to extract a target version number from the game's conf.lua file
-local function extractVersion(targetPath)
+local function extractVersion()
 	local okay, targetConf = pcall(love.filesystem.load, 'target/conf.lua')
 	if not okay then return end
 
@@ -89,17 +121,46 @@ local function extractVersion(targetPath)
 	return config.version -- hopefully a correct version string
 end
 
+local function getRelevantVersion(verStr)
+	local major, minor, revision = verStr:match('^(%d+)%.(%d+)%.(%d+)$') -- < 11
+	if minor then return minor end
+	if not major then
+		-- 11.0+
+		major, minor = verStr:match('^(%d+)%.(%d+)$')
+	end
+	return major
+end
+
 local runtimes, versions = getRuntimes()
 
-local function verifyVersion(targetPath)
-	local verStr = extractVersion(targetPath)
+local function verifyVersion()
+	local verStr = extractVersion()
 	if not verStr then return false, 'no version', '' end
 
-	local version = canonizeVerNum(verStr)
+	local version = canonizeVerNum(VERSION_MAP[getRelevantVersion(verStr)])
 	if not version then return false, 'invalid version', verStr end
 	if not runtimes[version] then return false, 'no runtime', verStr end
 
 	return true, version
+end
+
+-- detects the LÖVE version from the date of top-level files and directories in the game
+local function detectVersion()
+	local fileList, newestTime = love.filesystem.getDirectoryItems('target'), 0
+	for i = 1, #fileList do
+		local info = love.filesystem.getInfo('target/' .. fileList[i])
+		newestTime = math.max(newestTime, info.modtime)
+	end
+
+	if newestTime == 0 then return end
+
+	for i = 1, #VERSION_EPOCH do
+		if newestTime < VERSION_EPOCH[i] then
+			return SUPPORTED_VERSIONS[math.max(1, i - 1)]
+		end
+	end
+
+	return SUPPORTED_VERSIONS[#SUPPORTED_VERSIONS]
 end
 
 local function execute(what)
@@ -117,12 +178,12 @@ local function loadGame(targetPath, runtime)
 	if not targetPath then return false, 'no game' end
 	if not mountGame(targetPath, 'target') then return false, 'not found', targetPath end
 
-	local okay, err, details = verifyVersion(targetPath)
+	local okay, ver, details = verifyVersion()
 	if not okay then
-		return okay, err, details, runtimes
+		return false, ver, details, runtimes, detectVersion()
 	end
 
-	return true, execute(('%s %s'):format(runtimes[err].path, targetPath))
+	return true, execute(('%s %s'):format(runtimes[ver].path, targetPath))
 end
 
 return loadGame
