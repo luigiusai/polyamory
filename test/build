@@ -29,9 +29,9 @@ end
 
 function love.draw()
 	if version_match() then
-		love.graphics.print(('This is polyamory-test-%s, running on LÖVE %s'):format(VERSION, LOVE_VERSION), 0, 0)
+		love.graphics.print(('This is polyamory-test %s, running on LÖVE %s'):format(VERSION, LOVE_VERSION), 0, 0)
 	else
-		error(('Version mismatch: %s ~= %s'):format(VERSION, LOVE_VERSION), 0, 0)
+		error(('Version mismatch: %s ~= %s'):format(VERSION, LOVE_VERSION))
 	end
 end
 
