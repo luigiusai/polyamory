@@ -22,9 +22,9 @@ Currently supported LÖVE versions:
 
 ### 64 bits
 
-**Linux**: [download version 0.1](https://github.com/megagrump/polyamory/releases/download/release-0.1/polyamory-0.1-linux-x64.gz)  
+**Linux** (AMD64): [download version 0.2](https://github.com/megagrump/polyamory/releases/download/release-0.2/polyamory-0.2-linux-amd64.bz2)  
 
-**Windows**: [download version 0.1](https://github.com/megagrump/polyamory/releases/download/release-0.1/polyamory-0.1-win64.zip)  
+**Windows** (AMD64): [download version 0.2](https://github.com/megagrump/polyamory/releases/download/release-0.2/polyamory-0.2-win64.7z)  
 
 ### 32 bits
 
