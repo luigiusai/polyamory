@@ -173,7 +173,7 @@ end
 local function loadGame(targetPath, runtime)
 	if runtime then
 		print('run', runtimes[runtime].path, targetPath)
-		return true, execute(('"%s" "%s"'):format(runtimes[runtime].path, targetPath))
+		return true, execute(('%s "%s"'):format(runtimes[runtime].path, targetPath))
 	end
 
 	if not targetPath then return false, 'no game' end
@@ -187,7 +187,7 @@ local function loadGame(targetPath, runtime)
 	end
 
 	print('run', runtimes[ver].path, targetPath)
-	return true, execute(('"%s" "%s"'):format(runtimes[ver].path, targetPath))
+	return true, execute(('%s "%s"'):format(runtimes[ver].path, targetPath))
 end
 
 return loadGame
