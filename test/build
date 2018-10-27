@@ -33,10 +33,11 @@ function love.draw()
 	else
 		error(('Version mismatch: %s ~= %s'):format(VERSION, LOVE_VERSION))
 	end
+	love.graphics.print(table.concat(arg, ' '), 0, 16)
 end
 
 function love.keypressed(key)
-	love.event.quit()
+	if key == 'escape' then love.event.quit() end
 end
 EOF
 }
