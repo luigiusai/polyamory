@@ -3,6 +3,7 @@ local left, top = 10, 10
 local font, defaultFont, lineheight = nil, nil, 12
 local mouse = { x = 0, y = 0 }
 local lines = {}
+local cmdArgs
 
 local function printText(...)
 	local line = {...}
@@ -81,10 +82,11 @@ end
 
 local function run(targetPath, runtime)
 	window.close()
-	runGame(targetPath, runtime)
+	runGame(targetPath, cmdArgs, runtime)
 end
 
 function love.filedropped(file)
+	cmdArgs = file:getFilename()
 	run(file:getFilename())
 end
 
@@ -105,8 +107,9 @@ local function versionMenu(entries, targetPath, recommendedVersion)
 	end
 end
 
-return function(targetPath, err, details, runtimes, recommendedVersion)
+return function(targetPath, cmdLine, err, details, runtimes, recommendedVersion)
 	lines = {}
+	cmdArgs = cmdLine
 	window.setMode(640, 160) -- TODO: fit to required size
 	window.setTitle('polyamory')
 	defaultFont = defaultFont or graphics.getFont()

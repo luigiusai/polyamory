@@ -170,10 +170,10 @@ local function execute(what)
 	return os.execute(('%s &'):format(what))
 end
 
-local function loadGame(targetPath, runtime)
+local function loadGame(targetPath, cmdLine, runtime)
 	if runtime then
-		print('run', runtimes[runtime].path, targetPath)
-		return true, execute(('%s "%s"'):format(runtimes[runtime].path, targetPath))
+		print('run', runtimes[runtime].path, cmdLine)
+		return true, execute(('%s %s'):format(runtimes[runtime].path, cmdLine))
 	end
 
 	if not targetPath then return false, 'no game' end
@@ -186,8 +186,8 @@ local function loadGame(targetPath, runtime)
 		return false, ver, details, runtimes, detected and VERSION_MAP[getRelevantVersion(detected)]
 	end
 
-	print('run', runtimes[ver].path, targetPath)
-	return true, execute(('%s "%s"'):format(runtimes[ver].path, targetPath))
+	print('run', runtimes[ver].path, cmdLine)
+	return true, execute(('%s %s'):format(runtimes[ver].path, cmdLine))
 end
 
 return loadGame
