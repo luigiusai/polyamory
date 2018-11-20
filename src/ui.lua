@@ -1,5 +1,6 @@
-local graphics, window = love.graphics, love.window
+local graphics, window, noise = love.graphics, love.window, love.math.noise
 local left, top = 10, 10
+local width, height = 640, 224
 local font, defaultFont, lineheight = nil, nil, 12
 local mouse = { x = 0, y = 0 }
 local lines = {}
@@ -19,17 +20,37 @@ local function printMenu(action, text, annotation)
 	lines[#lines].annotation = annotation
 end
 
+function drawBg()
+	local cw, ch = 32, 32
+	for y = 0, math.ceil(height / ch) do
+		for x = 0, math.ceil(width / cw) do
+			local t = love.timer.getTime() * .1
+			local n = noise(x + t, y + t)
+			local b = .5 + n * n * .5
+			graphics.setColor(b * .2, b * .3, b * .4)
+			graphics.rectangle('fill', x * cw, y * ch, cw, ch)
+		end
+		graphics.setColor(0, 0, 0)
+		graphics.line(.5, y * ch - .5, width, y * ch - .5)
+	end
+	for x = 0, math.ceil(width / cw) do
+		graphics.line(x * cw - .5, .5, x * cw - .5, height)
+	end
+	graphics.setColor(1, 1, 1)
+end
+
 function love.draw()
-	graphics.clear(0.2, 0.4, 0.8)
+	--graphics.clear(0.2, 0.4, 0.8)
+	drawBg()
 	local x, y, lh = left, top, lineheight
 	for i = 0, #lines - 1 do
 		line = lines[i + 1]
-		if line.action then
-			graphics.setColor(0, 0, 0, line.active and .5 or .2)
+		if line.action and line.active then
+			graphics.setColor(0, .2, .5, .8)
 			graphics.rectangle('fill', 160, top + i * lh - 2, 320, lh - 2)
 		end
 		if line.active then
-			graphics.setColor(1, .8, 0)
+			graphics.setColor(1, .7, .2)
 		else
 			graphics.setColor(1, 1, 1)
 		end
@@ -38,7 +59,7 @@ function love.draw()
 		graphics.print(line.text, tx, ty)
 		if line.annotation then
 			graphics.setFont(defaultFont)
-			graphics.setColor(0, 1, 0, 1)
+			graphics.setColor(.2, 1, 1, 1)
 			local ax, ay = tx + font:getWidth(line.text) + 10, math.floor(ty + lh - defaultFont:getHeight() * 1.5)
 			graphics.print(line.annotation, ax, ay)
 			graphics.setFont(font)
@@ -110,10 +131,10 @@ end
 return function(targetPath, cmdLine, err, details, runtimes, recommendedVersion)
 	lines = {}
 	cmdArgs = cmdLine
-	window.setMode(640, 160) -- TODO: fit to required size
+	window.setMode(width, height) -- TODO: fit to required size
 	window.setTitle('polyamory')
 	defaultFont = defaultFont or graphics.getFont()
-	font = font or graphics.setNewFont('rif.ttf', 18)
+	font = font or graphics.setNewFont('neuropol.ttf', 24)
 	lineheight = math.floor(font:getHeight() * 1.2)
 
 	if err == 'no game' then
@@ -122,7 +143,8 @@ return function(targetPath, cmdLine, err, details, runtimes, recommendedVersion)
 		printText('File not found or corrupt archive:')
 		printText(details)
 	elseif err == 'no version' then
-		printText('This game has no associated LÖVE version. Choose one:')
+		printText('No version information found')
+		printText('Select version:')
 		versionMenu(runtimes, targetPath, recommendedVersion)
 	elseif err == 'invalid version' then
 		printText('This game has an invalid version identifier (' .. details .. ')')
