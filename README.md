@@ -1,10 +1,8 @@
 # polyamory - multi version LÖVE
 
-polyamory is a compilation of [LÖVE](https://love2d.org) runtimes that combines several LÖVE versions into one. It can run games that have been written for a wide range of LÖVE API versions with a single, unified and easy to use program.
+polyamory is a compilation of [LÖVE](https://love2d.org) runtimes that combines several LÖVE versions into a single application. It runs games written for a wide range of LÖVE versions with a single, unified and easy to use program.
 
-polyamory consists of a bunch of new and old binary releases, put together with a bit of Lua glue, in a horribly inefficient and bloated way.
-
-It is not intended for developers, but rather meant to be used as a drop-in replacement by players who want to play older and newer LÖVE games on their Windows or Linux computers without the hassle of worrying about what LÖVE version the game requires.
+It is intended to be used as a drop-in replacement by players who want to play both older and newer LÖVE games on their Windows or Linux computers without the hassle of worrying about what LÖVE version the game requires.
 
 Currently supported LÖVE versions:
 
