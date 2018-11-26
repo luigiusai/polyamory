@@ -10,6 +10,7 @@ local SUPPORTED_VERSIONS = {
 	'0.10.2',
 	'11.0',
 	'11.1',
+	'11.2',
 }
 
 -- release dates of known LÖVE versions
@@ -23,13 +24,14 @@ local VERSION_EPOCH = {
 	1477868400, -- 0.10.2
 	1522533600, -- 11.0
 	1523743200, -- 11.1
+	1542668400, -- 11.2
 }
 
 local VERSION_MAP = {
 	['8'] = '0.8.0',
 	['9'] = '0.9.2',
 	['10'] = '0.10.2',
-	['11'] = '11.1',
+	['11'] = '11.2',
 }
 
 local BASE = love.filesystem.getSource()
