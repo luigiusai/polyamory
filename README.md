@@ -6,6 +6,7 @@ It is intended to be used as a drop-in replacement by players who want to play b
 
 Currently supported LÖVE versions:
 
+* 11.2  
 * 11.1  
 * 11.0  
 * 0.10.2  
@@ -20,9 +21,9 @@ Currently supported LÖVE versions:
 
 ### 64 bits
 
-**Linux** (AMD64): [download version 0.3](https://github.com/megagrump/polyamory/releases/download/release-0.3/polyamory-0.3-linux-amd64.bz2)  
+**Linux** (AMD64): [download version 0.4](https://github.com/megagrump/polyamory/releases/download/release-0.4/polyamory-0.4-linux-amd64.bz2)  
 
-**Windows** (AMD64): [download version 0.3](https://github.com/megagrump/polyamory/releases/download/release-0.3/polyamory-0.3-win64.7z)  
+**Windows** (AMD64): [download version 0.4](https://github.com/megagrump/polyamory/releases/download/release-0.4/polyamory-0.4-win64.7z)  
 
 ### 32 bits
 
@@ -47,7 +48,7 @@ Other requirements:
 
 #### Step 1  
 
-Copy the AppImage of the *latest* release image into the `linux/x64`/`x86` directory, and name it `base.image`:
+Copy the AppImage of the *latest* release image (currently 11.2) into the `linux/x64`/`x86` directory, and name it `base.image`:
 
     linux/  
         x64/
