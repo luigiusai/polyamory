@@ -107,7 +107,7 @@ local function run(targetPath, runtime)
 end
 
 function love.filedropped(file)
-	cmdArgs = file:getFilename()
+	cmdArgs = '"' .. file:getFilename() .. '"'
 	run(file:getFilename())
 end
 
