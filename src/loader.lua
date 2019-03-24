@@ -1,4 +1,5 @@
 local ffi = require('ffi')
+local lib = ffi.C
 
 local SUPPORTED_VERSIONS = {
 	'0.8.0',
@@ -12,6 +13,34 @@ local SUPPORTED_VERSIONS = {
 	'11.1',
 	'11.2',
 }
+
+local u2w, w2u
+
+if ffi.os == 'Windows' then
+	ffi.cdef([[
+		int MultiByteToWideChar(unsigned int CodePage, uint32_t dwFlags, const char* lpMultiByteStr, int cbMultiByte, const char* lpWideCharStr, int cchWideChar);
+		int WideCharToMultiByte(unsigned int CodePage, uint32_t dwFlags, const char* lpWideCharStr, int cchWideChar, const char* lpMultiByteStr, int cchMultiByte, const char* default, int* used);
+		unsigned int GetACP();
+	]])
+
+	u2w = function(str, code)
+		local size = lib.MultiByteToWideChar(code or 65001, 0, str, #str, nil, 0)
+		local buf = ffi.new("char[?]", size * 2 + 2)
+		lib.MultiByteToWideChar(code or 65001, 0, str, #str, buf, size * 2)
+		return buf
+	end
+
+	w2u = function(wstr, code)
+		local size = lib.WideCharToMultiByte(code or 65001, 0, wstr, -1, nil, 0, nil, nil)
+		local buf = ffi.new("char[?]", size + 1)
+		size = lib.WideCharToMultiByte(code or 65001, 0, wstr, -1, buf, size, nil, nil)
+		return ffi.string(buf)
+	end
+else
+	u2w = function(...) return ... end
+	w2u = function(...) return ... end
+end
+
 
 -- release dates of known LÖVE versions
 local VERSION_EPOCH = {
@@ -173,6 +202,7 @@ local function execute(what)
 end
 
 local function loadGame(targetPath, cmdLine, runtime)
+	cmdLine = w2u(u2w(cmdLine), 0)
 	if runtime then
 		print('run', runtimes[runtime].path, cmdLine)
 		return true, execute(('%s %s'):format(runtimes[runtime].path, cmdLine))
