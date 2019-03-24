@@ -197,15 +197,16 @@ end
 local function execute(what)
 	if love.system.getOS() == 'Windows' then
 		what = w2u(u2w(what), 0)
-		return os.execute(('start %s'):format(what))
+		return os.execute(('start "" %s'):format(what))
 	end
-	return os.execute(('%s &'):format(what))
+	return os.execute(('%s'):format(what))
 end
 
 local function loadGame(targetPath, cmdLine, runtime)
 	if runtime then
-		print('run', runtimes[runtime].path, cmdLine)
-		return true, execute(('%s %s'):format(runtimes[runtime].path, cmdLine))
+		runStr = ('"%s" %s'):format(runtimes[runtime].path, cmdLine)
+		print('run', runStr)
+		return true, execute(runStr)
 	end
 
 	if not targetPath then return false, 'no game' end
@@ -218,8 +219,9 @@ local function loadGame(targetPath, cmdLine, runtime)
 		return false, ver, details, runtimes, detected and VERSION_MAP[getRelevantVersion(detected)]
 	end
 
-	print('run', runtimes[ver].path, cmdLine)
-	return true, execute(('%s %s'):format(runtimes[ver].path, cmdLine))
+	runStr = ('"%s" %s'):format(runtimes[ver].path, cmdLine)
+	print('run', runStr)
+	return true, execute(runStr)
 end
 
 return loadGame
