@@ -204,7 +204,7 @@ end
 
 local function loadGame(targetPath, cmdLine, runtime)
 	if runtime then
-		runStr = ('"%s" %s'):format(runtimes[runtime].path, cmdLine)
+		local runStr = ('"%s" %s'):format(runtimes[runtime].path, cmdLine)
 		print('run', runStr)
 		return true, execute(runStr)
 	end
@@ -219,7 +219,7 @@ local function loadGame(targetPath, cmdLine, runtime)
 		return false, ver, details, runtimes, detected and VERSION_MAP[getRelevantVersion(detected)]
 	end
 
-	runStr = ('"%s" %s'):format(runtimes[ver].path, cmdLine)
+	local runStr = ('"%s" %s'):format(runtimes[ver].path, cmdLine)
 	print('run', runStr)
 	return true, execute(runStr)
 end
