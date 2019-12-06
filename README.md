@@ -6,6 +6,7 @@ It is intended to be used as a drop-in replacement by players who want to play b
 
 Currently supported LÖVE versions:
 
+* 11.3  
 * 11.2  
 * 11.1  
 * 11.0  
@@ -39,7 +40,7 @@ coming ~soon!~ probably never
 
 ### Linux
 
-You need one AppImage for each version of LÖVE you want to include in your build. Check the [LÖVE](https://bitbucket.org/rude/love) repo for build scripts and instructions. AppImages for 0.8.0, 0.9.2, 0.10.2 and 11.1 are required.
+You need one AppImage for each version of LÖVE you want to include in your build. Check the [LÖVE](https://bitbucket.org/rude/love) repo for build scripts and instructions. AppImages for 0.8.0, 0.9.2, 0.10.2 and 11.3 are required.
 
 Other requirements:  
 
@@ -48,7 +49,7 @@ Other requirements:
 
 #### Step 1  
 
-Copy the AppImage of the *latest* release image (currently 11.2) into the `linux/x64`/`x86` directory, and name it `base.image`:
+Copy the AppImage of the *latest* release image (currently 11.3) into the `linux/x64`/`x86` directory, and name it `base.image`:
 
     linux/  
         x64/
@@ -63,7 +64,7 @@ Make a directory for each LÖVE version you want to include in your build in `li
         x64/  
             base.image  
             love/  
-                11.1/   <-- here  
+                11.3/   <-- here  
                 0.10.2/ <-- here  
                 0.9.2/  <-- here  
                 0.8.0/  <-- here  
@@ -76,7 +77,7 @@ Place your pre-built images in the numbered directory structure you have created
         x64/  
             base.image
             love/  
-                11.1/  
+                11.3/  
                     love.exe  <-- here  
                 0.10.2/
                     love.exe  <-- here  
@@ -107,7 +108,7 @@ Requirements:
 
 #### Step 1  
 
-Build each LÖVE version you want to include, or download pre-built zips with binaries for each version and architecture you want to include from the [LÖVE repo](https://bitbucket.org/rude/love/downloads) (e. g. `love-$VERSION-win<32 or 64>.zip`). Versions 0.8.0, 0.9.2, 0.10.2 and 11.1 are required.
+Build each LÖVE version you want to include, or download pre-built zips with binaries for each version and architecture you want to include from the [LÖVE repo](https://bitbucket.org/rude/love/downloads) (e. g. `love-$VERSION-win<32 or 64>.zip`). Versions 0.8.0, 0.9.2, 0.10.2 and 11.3 are required.
 
 #### Step 2  
 
@@ -117,7 +118,7 @@ For each version to be included, create a directory in `windows/x64` or `windows
         x64/  
             base/  
             love/  
-                11.1/    <-- here  
+                11.3/    <-- here  
                 0.10.2/  <-- here  
                 0.9.2/   <-- here  
                 0.8.0/   <-- here  
@@ -128,7 +129,7 @@ Copy the files for each version into these directories.
         x64/  
             base/  
             love/  
-                11.1/   
+                11.3/   
                     love.exe    <-- here
                     readme.txt  <-- here
                     ...
@@ -149,7 +150,7 @@ Put the files of the latest LÖVE version in `windows/x64/base` or `windows/x86/
                 readme.txt  <-- here
                 ...
             love/  
-                11.1/ 
+                11.3/ 
                     ... 
                 0.10.2/
                     ...  
